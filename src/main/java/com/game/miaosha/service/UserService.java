@@ -2,6 +2,8 @@ package com.game.miaosha.service;
 
 import com.game.miaosha.dao.UserDao;
 import com.game.miaosha.domain.User;
+import com.game.miaosha.result.CodeMsg;
+import com.game.miaosha.vo.LoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,4 +38,5 @@ public class UserService {
 
         return true;
     }
+
 }

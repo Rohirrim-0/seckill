@@ -1,4 +1,4 @@
-package com.game.miaosha;
+package com.game.miaosha.util;
 
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -28,5 +28,9 @@ public class MD5Util {
         String formPass = inputPassFormPass(input);
         String dbPass = formPassToDBPass(formPass,saltDB);
         return dbPass;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(inputPassToDBPass("123456",salt));
     }
 }
