@@ -8,6 +8,7 @@ import com.game.miaosha.result.CodeMsg;
 import com.game.miaosha.util.MD5Util;
 import com.game.miaosha.util.UUIDUtil;
 import com.game.miaosha.vo.LoginVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,12 +52,28 @@ public class MiaoshaUserService {
         }
 
         //生成cookie，存储token
+        addCookie(response,user);
+        return true;
+    }
+
+    public MiaoshaUser getByToken(HttpServletResponse response,String token) {
+        if (StringUtils.isEmpty(token)){
+            return null;
+        }
+        MiaoshaUser miaoshaUser = redisService.get(MiaoshaUserKey.token, token, MiaoshaUser.class);
+        //延长有效期
+        if (miaoshaUser!=null){
+            addCookie(response,miaoshaUser);
+        }
+        return miaoshaUser;
+    }
+
+    private void addCookie(HttpServletResponse response,MiaoshaUser user){
         String token = UUIDUtil.uuid();
         redisService.set(MiaoshaUserKey.token,token,user);
         Cookie cookie = new Cookie(COOKIE_NAME_TOKEN,token);
         cookie.setMaxAge(MiaoshaUserKey.token.expireSeconds());
         cookie.setPath("/");
         response.addCookie(cookie);
-        return true;
     }
 }

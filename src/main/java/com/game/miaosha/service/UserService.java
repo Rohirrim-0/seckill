@@ -1,9 +1,11 @@
 package com.game.miaosha.service;
 
 import com.game.miaosha.dao.UserDao;
+import com.game.miaosha.domain.MiaoshaUser;
 import com.game.miaosha.domain.User;
 import com.game.miaosha.result.CodeMsg;
 import com.game.miaosha.vo.LoginVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
